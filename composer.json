@@ -1,0 +1,19 @@
+{
+  "name": "Example",
+  "autoload": {
+    "psr-4": {
+      "Example\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Example\\": "tests/Example"
+    }
+  },
+  "require": {
+    "php": ">=5.5.9",
+    "doctrine/orm": "^2.5"
+  },
+  "require-dev": {
+  }
+}
