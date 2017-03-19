@@ -1,0 +1,4 @@
+services:
+#    ddd_calculator.example:
+#        class: DDD\CalculatorBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

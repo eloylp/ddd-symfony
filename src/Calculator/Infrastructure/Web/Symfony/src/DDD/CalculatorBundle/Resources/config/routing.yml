@@ -1,0 +1,3 @@
+ddd_calculator_homepage:
+    path:     /
+    defaults: { _controller: DDDCalculatorBundle:Default:index }

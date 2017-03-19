@@ -1,3 +1,7 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+ddd_calculator:
+    resource: "@DDDCalculatorBundle/Resources/config/routing.yml"
+    prefix:   /calculator
