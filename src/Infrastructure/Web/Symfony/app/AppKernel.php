@@ -14,8 +14,8 @@ class AppKernel extends Kernel
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new AppBundle\AppBundle(),
-            new DDD\CalculatorBundle\DDDCalculatorBundle(),
+            new DDD\Infrastructure\Web\Symfony\AppBundle\AppBundle(),
+            new DDD\Calculator\Infrastructure\Web\Symfony\CalculatorBundle\DDDCalculatorBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

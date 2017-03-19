@@ -1,6 +1,6 @@
 <?php
 
-namespace DDD\CalculatorBundle\DependencyInjection;
+namespace DDD\Calculator\Infrastructure\Web\Symfony\CalculatorBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

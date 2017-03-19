@@ -18,6 +18,7 @@
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
             <exclude>
+                <directory>src/Infrastructure</directory>
                 <directory>src/*/Infrastructure</directory>
             </exclude>
         </whitelist>

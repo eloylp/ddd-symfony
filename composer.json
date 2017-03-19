@@ -1,20 +1,75 @@
 {
-  "name": "Example",
+  "name": "DDD",
+  "type": "project",
   "autoload": {
     "psr-4": {
-      "DDD\\": "src/"
-    }
+      "DDD\\": "src/",
+      "DDD\\Infrastructure\\Web\\Symfony\\": "src/Infrastructure/Web/Symfony/src/"
+    },
+    "classmap": [
+      "src/Infrastructure/Web/Symfony/app/AppKernel.php",
+      "src/Infrastructure/Web/Symfony/app/AppCache.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
       "DDD\\": "tests/src"
-    }
+    },
+    "files": [
+      "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php"
+    ]
   },
   "require": {
     "php": ">=7.0.16",
-    "doctrine/orm": "^2.5"
+    "doctrine/orm": "^2.5",
+    "incenteev/composer-parameter-handler": "^2.0",
+    "sensio/distribution-bundle": "^5.0",
+    "sensio/framework-extra-bundle": "^3.0.2",
+    "symfony/monolog-bundle": "^3.0.2",
+    "symfony/polyfill-apcu": "^1.0",
+    "symfony/swiftmailer-bundle": "^2.3.10",
+    "symfony/symfony": "3.2.*",
+    "twig/twig": "^1.0||^2.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^6.0"
+    "phpunit/phpunit": "^6.0",
+    "sensio/generator-bundle": "^3.0",
+    "symfony/phpunit-bridge": "^3.0"
+  },
+  "scripts": {
+    "symfony-scripts": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+    ],
+    "post-install-cmd": [
+      "@symfony-scripts"
+    ],
+    "post-update-cmd": [
+      "@symfony-scripts"
+    ]
+  },
+  "config": {
+    "platform": {
+      "php": "7.0.16"
+    },
+    "sort-packages": true
+  },
+  "extra": {
+    "symfony-app-dir": "src/Infrastructure/Web/Symfony/app",
+    "symfony-bin-dir": "src/Infrastructure/Web/Symfony/bin",
+    "symfony-var-dir": "src/Infrastructure/Web/Symfony/var",
+    "symfony-web-dir": "src/Infrastructure/Web/Symfony/web",
+    "symfony-tests-dir": "src/Infrastructure/Web/Symfony/tests",
+    "symfony-assets-install": "relative",
+    "incenteev-parameters": {
+      "file": "src/Infrastructure/Web/Symfony/app/config/parameters.yml"
+    },
+    "branch-alias": {
+      "dev-master": "3.2-dev"
+    }
   }
 }

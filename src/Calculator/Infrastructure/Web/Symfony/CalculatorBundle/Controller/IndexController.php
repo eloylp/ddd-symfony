@@ -1,6 +1,5 @@
 <?php
-
-namespace DDD\CalculatorBundle\Controller;
+namespace DDD\Calculator\Infrastructure\Web\Symfony\CalculatorBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
