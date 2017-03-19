@@ -15,13 +15,17 @@
         </testsuite>
     </testsuites>
 
+
     <filter>
-        <whitelist>
+        <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
+            <exclude>
+                <directory>src/*/Infrastructure</directory>
+            </exclude>
         </whitelist>
     </filter>
     <logging>
-        <log type="coverage-html" target="doc/report"/>
+        <log type="coverage-html" target="doc/coverage"/>
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
     </logging>
 </phpunit>
