@@ -2,16 +2,16 @@
   "name": "Example",
   "autoload": {
     "psr-4": {
-      "Example\\": "src/"
+      "DDD\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Example\\": "tests/Example"
+      "DDD\\": "tests/src"
     }
   },
   "require": {
-    "php": ">=5.5.9",
+    "php": ">=7.0.16",
     "doctrine/orm": "^2.5"
   },
   "require-dev": {
