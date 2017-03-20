@@ -1,3 +1,8 @@
 ddd_calculator_homepage:
     path:     /
     defaults: { _controller: DDDCalculatorBundle:Index:index }
+
+ddd_calculator_sum:
+    path:     /sum
+    methods: ['POST']
+    defaults: { _controller: DDDCalculatorBundle:Sum:sum }

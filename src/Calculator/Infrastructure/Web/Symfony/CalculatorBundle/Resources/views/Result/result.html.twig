@@ -8,15 +8,13 @@
     <title>Crazy calculator</title>
 </head>
 <body>
-<h1>Do the math.</h1>
+<h1>The result is ...</h1>
 
-<h3>Sum</h3>
-<form method="post" action="{{ path('ddd_calculator_sum') }}">
-    <input type="number" placeholder="sum1" name="sum1">
-    <input type="number" placeholder="sum2" name="sum2">
-    <button type="submit">Send</button>
-</form>
+{{ result }}
 
-
+<br>
+<a href="{{ path('ddd_calculator_homepage') }}">
+    <button>go back !</button>
+</a>
 </body>
 </html>

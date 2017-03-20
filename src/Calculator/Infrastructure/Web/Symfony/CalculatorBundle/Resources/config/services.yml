@@ -1,4 +1,6 @@
 services:
-#    ddd_calculator.example:
-#        class: DDD\CalculatorBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+  calculator_sum.operation:
+    class: DDD\Calculator\Domain\CalculatorSumOperation
+  calculator_sum.service:
+    class: DDD\Calculator\Application\CalculatorSumService
+    arguments: ["@calculator_sum.operation"]
