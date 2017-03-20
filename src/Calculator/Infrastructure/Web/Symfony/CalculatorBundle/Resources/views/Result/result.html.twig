@@ -10,7 +10,10 @@
 <body>
 <h1>The result is ...</h1>
 
-{{ result }}
+{{ result.result }}
+<br>
+
+was processed in {{ result.calculationTime }}
 
 <br>
 <a href="{{ path('ddd_calculator_homepage') }}">
