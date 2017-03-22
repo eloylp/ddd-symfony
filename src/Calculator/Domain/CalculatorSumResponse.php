@@ -7,6 +7,7 @@ use JsonSerializable;
 
 class CalculatorSumResponse implements JsonSerializable
 {
+    private $id;
     private $result;
     private $calculationTime;
 
@@ -50,5 +51,37 @@ class CalculatorSumResponse implements JsonSerializable
             "result" => $this->getResult(),
             "calculationTime" => $this->getCalculationTime()
         ];
+    }
+
+    /**
+     * @param mixed $result
+     */
+    public function setResult($result)
+    {
+        $this->result = $result;
+    }
+
+    /**
+     * @param mixed $calculationTime
+     */
+    public function setCalculationTime($calculationTime)
+    {
+        $this->calculationTime = $calculationTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 }
