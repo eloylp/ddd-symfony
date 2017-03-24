@@ -1,29 +1,98 @@
 version: '3'
 networks:
-    infrastructure_http_traffic:
-        external: true
-    infrastructure_sql_traffic:
-        external: true
-    infrastructure_nosql_traffic:
-        external: true
-    infrastructure_amqp_traffic:
-        external: true
+  infrastructure_http_traffic:
+    external: true
+  infrastructure_sql_traffic:
+    external: true
+  infrastructure_nosql_traffic:
+    external: true
+  infrastructure_amqp_traffic:
+    external: true
+  infrastructure_redis_traffic:
+    external: true
 
 services:
   haproxy:
-    build:
+    restart: always
+    build: haproxy
+    image: ddd/haproxy
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./haproxy/config:/usr/local/etc/haproxy
+    networks:
+      infrastructure_http_traffic:
+        aliases:
+          - haproxy
+    cpu_shares: 1000
+    mem_limit: 100m
 
   redis:
+    restart: always
+    build: redis
+    image: ddd/redis
+    expose:
+      - 6379
+    networks:
+          infrastructure_redis_traffic:
+            aliases:
+              - redis
+    cpu_shares: 1000
+    mem_limit: 500m
 
   mariadb:
-    image: mariadb:latest
+    restart: always
+    image: ddd/mariadb
+    build: mariadb
     volumes:
       - ./mariadb/volumes/data:/var/lib/mysql
       - ./mariadb/volumes/log:/var/log
-      - ./mariadb/volumes/conf:/etc/mysql
-      - ./mariadb/volumes/certs:/etc/ssl/dbc
+    expose:
+      - 3306
+    networks:
+      infrastructure_sql_traffic:
+        aliases:
+          - mariadb
+    cpu_shares: 1000
+    mem_limit: 500m
 
   mongodb:
+    restart: always
+    build: mongodb
+    image: ddd/mongodb
+    volumes:
+        - ./mongodb/volumes/data:/data/db
+        - ./mongodb/volumes/log:/var/log
+    expose:
+        - 27017
+    networks:
+        infrastructure_nosql_traffic:
+          aliases:
+            - mongodb
+    command: "--storageEngine wiredTiger"
+    cpu_shares: 1000
+    mem_limit: 500m
 
   rabbitmq:
-
+    restart: always
+    build: rabbitmq
+    image: ddd/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password
+      - RABBITMQ_DEFAULT_VHOST=my_vhost
+      - RABBITMQ_HIPE_COMPILE=1
+    volumes:
+        - ./rabbitmq/volumes/data:/var/lib/rabbitmq
+        - ./rabbitmq/volumes/log:/var/log/rabbitmq
+    expose:
+        - 5672
+    ports:
+        - 8080:15672
+    networks:
+        infrastructure_amqp_traffic:
+          aliases:
+            - rabbitmq
+    cpu_shares: 1000
+    mem_limit: 500m
