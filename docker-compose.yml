@@ -1,0 +1,41 @@
+version: '3'
+networks:
+  infrastructure_http_traffic:
+    external: true
+  infrastructure_sql_traffic:
+    external: true
+  infrastructure_nosql_traffic:
+    external: true
+  infrastructure_amqp_traffic:
+    external: true
+  infrastructure_redis_traffic:
+    external: true
+
+services:
+  http:
+    restart: always
+    build: http
+    image: ddd/http
+    expose:
+      - 80
+    volumes:
+      - .:/var/www/html
+    networks:
+      infrastructure_http_traffic:
+        aliases:
+          - http
+      infrastructure_sql_traffic:
+        aliases:
+          - http
+      infrastructure_nosql_traffic:
+        aliases:
+          - http
+      infrastructure_amqp_traffic:
+        aliases:
+          - http
+      infrastructure_redis_traffic:
+        aliases:
+          - http
+    cpu_shares: 1000
+    mem_limit: 100m
+
