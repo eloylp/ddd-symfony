@@ -1,0 +1,29 @@
+version: '3'
+networks:
+    infrastructure_http_traffic:
+        external: true
+    infrastructure_sql_traffic:
+        external: true
+    infrastructure_nosql_traffic:
+        external: true
+    infrastructure_amqp_traffic:
+        external: true
+
+services:
+  haproxy:
+    build:
+
+  redis:
+
+  mariadb:
+    image: mariadb:latest
+    volumes:
+      - ./mariadb/volumes/data:/var/lib/mysql
+      - ./mariadb/volumes/log:/var/log
+      - ./mariadb/volumes/conf:/etc/mysql
+      - ./mariadb/volumes/certs:/etc/ssl/dbc
+
+  mongodb:
+
+  rabbitmq:
+
