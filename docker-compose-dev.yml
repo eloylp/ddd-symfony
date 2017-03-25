@@ -14,12 +14,14 @@ networks:
 services:
   http:
     restart: always
-    build:
-      dockerfile: ./docker/http/Dockerfile
-      context: .
-    image: ddd/http
+    build: docker/httpdev
+    image: ddd/httpdev
+    volumes:
+      - .:/var/www/html
     expose:
       - 80
+    environment:
+      - ENABLE_SYMFONY_DEBUG=a8f5f167f44f4964e6c998dee827110c
     networks:
       infrastructure_http_traffic:
         aliases:
