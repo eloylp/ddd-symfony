@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 networks:
   infrastructure_http_traffic:
     external: true
@@ -14,7 +14,7 @@ networks:
 services:
   http:
     restart: always
-    build: http
+    build: docker/http
     image: ddd/http
     expose:
       - 80

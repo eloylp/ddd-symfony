@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 networks:
   infrastructure_http_traffic:
     external: true
@@ -50,6 +50,8 @@ services:
       - ./mariadb/volumes/log:/var/log
     expose:
       - 3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
     networks:
       infrastructure_sql_traffic:
         aliases:

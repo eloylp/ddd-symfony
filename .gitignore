@@ -1,4 +1,6 @@
 .idea
 doc/*
 vendor
+docker/infrastructure/**/data
+docker/infrastructure/**/log
 *config.json
