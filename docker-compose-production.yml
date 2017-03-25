@@ -14,14 +14,12 @@ networks:
 services:
   web1:
     restart: always
-    build: docker/services/httpdev
-    image: ddd/httpdev
-    volumes:
-      - .:/var/www/html
+    build:
+      dockerfile: ./docker/services/http/Dockerfile
+      context: .
+    image: ddd/http
     expose:
       - 80
-    environment:
-      - APP_ENABLE_DEBUG=a8f5f167f44f4964e6c998dee827110c
     networks:
       infrastructure_http_traffic:
         aliases:
@@ -39,18 +37,16 @@ services:
         aliases:
           - web1
     cpu_shares: 1000
-    mem_limit: 500m
+    mem_limit: 100m
 
   web2:
       restart: always
-      build: docker/services/httpdev
-      image: ddd/httpdev
-      volumes:
-        - .:/var/www/html
+      build:
+        dockerfile: ./docker/services/http/Dockerfile
+        context: .
+      image: ddd/http
       expose:
         - 80
-      environment:
-        - APP_ENABLE_DEBUG=a8f5f167f44f4964e6c998dee827110c
       networks:
         infrastructure_http_traffic:
           aliases:
