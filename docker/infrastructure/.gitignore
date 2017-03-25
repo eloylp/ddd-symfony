@@ -1,1 +1,3 @@
 haproxy/config/haproxy.cfg
+haproxy/tls/*
+!haproxy/tls/.gitkeep
