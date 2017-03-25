@@ -21,6 +21,7 @@ services:
       - 443:443
     volumes:
       - ./haproxy/config:/usr/local/etc/haproxy
+      - ./haproxy/tls:/etc/tls
     networks:
       infrastructure_http_traffic:
         aliases:
