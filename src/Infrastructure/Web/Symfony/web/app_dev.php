@@ -10,7 +10,7 @@ use Symfony\Component\Debug\Debug;
 
 // This check prevents access to debug front controllers that are deployed by accident to production servers.
 // Feel free to remove this, extend it, or make something more sophisticated.
-$debugEnvExpected = getenv('ENABLE_SYMFONY_DEBUG');
+$debugEnvExpected = getenv('APP_ENABLE_DEBUG');
 if (!isset( $debugEnvExpected) || $debugEnvExpected != "a8f5f167f44f4964e6c998dee827110c") {
     header('HTTP/1.0 403 Forbidden');
     exit('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');

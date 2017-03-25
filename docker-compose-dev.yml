@@ -21,7 +21,7 @@ services:
     expose:
       - 80
     environment:
-      - ENABLE_SYMFONY_DEBUG=a8f5f167f44f4964e6c998dee827110c
+      - APP_ENABLE_DEBUG=a8f5f167f44f4964e6c998dee827110c
     networks:
       infrastructure_http_traffic:
         aliases:
