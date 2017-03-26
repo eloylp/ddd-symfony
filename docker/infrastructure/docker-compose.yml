@@ -146,5 +146,5 @@ services:
       infrastructure_rsyslog_traffic:
         aliases:
           - rsyslog
-    cpu_shares: 1000
+    cpu_shares: 300
     mem_limit: 100m
