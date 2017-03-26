@@ -1,4 +1,4 @@
-FROM php:7.1.1-apache
+FROM php:7.1.0-apache
 
 COPY ./docker/services/http/symfony.conf /etc/apache2/sites-available
 COPY . /var/www/html
