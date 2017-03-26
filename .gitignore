@@ -1,6 +1,4 @@
 .idea
 doc/*
+!doc/.gitkeep
 vendor
-docker/infrastructure/**/data
-docker/infrastructure/**/log
-*config.json

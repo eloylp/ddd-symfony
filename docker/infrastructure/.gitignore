@@ -1,3 +1,5 @@
-haproxy/config/haproxy.cfg
-haproxy/tls/*
-!haproxy/tls/.gitkeep
+haproxy/volumes/config/haproxy.cfg
+haproxy/volumes/tls/*
+!.gitkeep
+**/data
+**/log
