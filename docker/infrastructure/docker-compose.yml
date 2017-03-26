@@ -148,3 +148,23 @@ services:
           - rsyslog
     cpu_shares: 300
     mem_limit: 100m
+
+  logrotate:
+      restart: always
+      build: logrotate
+      image: ddd/logrotate
+      depends_on:
+        - rsyslog
+      logging:
+        driver: syslog
+        options:
+          syslog-address: "tcp://127.0.0.1:55514"
+          tag: "{{.DaemonName}}/logrotate"
+      volumes:
+        - ./rsyslog/volumes/data:/var/log/docker
+      networks:
+        infrastructure_rsyslog_traffic:
+          aliases:
+            - logrotate
+      cpu_shares: 300
+      mem_limit: 100m
