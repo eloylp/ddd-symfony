@@ -7,6 +7,8 @@ global
         user haproxy
         group haproxy
         daemon
+        stats socket /var/run/haproxy.sock mode 600 level admin
+        stats timeout 2m
 
 defaults
         log     global
@@ -32,9 +34,9 @@ frontend http-in
         ## figure out which one to use
         use_backend main if main_acl_host
 
-backend main
+backend mainbackend
         balance roundrobin
         option httpclose
         option forwardfor
-        server node1 web1:80 check
-        server node2 web2:80 check
+        server web1 web1:80 check
+        server web2 web2:80 check
