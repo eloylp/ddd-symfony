@@ -1,4 +1,6 @@
 haproxy/volumes/config/haproxy.cfg
+rsyslog/config/rsyslog.conf
+rsyslog/config/docker.conf
 haproxy/volumes/tls/*
 !.gitkeep
 **/data

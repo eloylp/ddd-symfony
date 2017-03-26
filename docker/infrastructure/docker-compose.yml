@@ -10,12 +10,21 @@ networks:
     external: true
   infrastructure_redis_traffic:
     external: true
+  infrastructure_rsyslog_traffic:
+    external: true
 
 services:
   haproxy:
     restart: always
     build: haproxy
     image: ddd/haproxy
+    depends_on:
+      - rsyslog
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://127.0.0.1:55514"
+        tag: "{{.DaemonName}}/haproxy"
     ports:
       - 80:80
       - 443:443
@@ -33,22 +42,35 @@ services:
     restart: always
     build: redis
     image: ddd/redis
+    depends_on:
+      - rsyslog
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://127.0.0.1:55514"
+        tag: "{{.DaemonName}}/redis"
     expose:
       - 6379
     networks:
-          infrastructure_redis_traffic:
-            aliases:
-              - redis
+      infrastructure_redis_traffic:
+        aliases:
+          - redis
     cpu_shares: 1000
     mem_limit: 500m
 
   mariadb:
     restart: always
     image: ddd/mariadb
+    depends_on:
+      - rsyslog
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://127.0.0.1:55514"
+        tag: "{{.DaemonName}}/mariadb"
     build: mariadb
     volumes:
       - ./mariadb/volumes/data:/var/lib/mysql
-      - ./mariadb/volumes/log:/var/log
     expose:
       - 3306
     environment:
@@ -64,15 +86,21 @@ services:
     restart: always
     build: mongodb
     image: ddd/mongodb
+    depends_on:
+      - rsyslog
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://127.0.0.1:55514"
+        tag: "{{.DaemonName}}/mongodb"
     volumes:
-        - ./mongodb/volumes/data:/data/db
-        - ./mongodb/volumes/log:/var/log
+      - ./mongodb/volumes/data:/data/db
     expose:
-        - 27017
+      - 27017
     networks:
-        infrastructure_nosql_traffic:
-          aliases:
-            - mongodb
+      infrastructure_nosql_traffic:
+        aliases:
+          - mongodb
     command: "--storageEngine wiredTiger"
     cpu_shares: 1000
     mem_limit: 500m
@@ -81,21 +109,42 @@ services:
     restart: always
     build: rabbitmq
     image: ddd/rabbitmq
+    depends_on:
+      - rsyslog
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://127.0.0.1:55514"
+        tag: "{{.DaemonName}}/rabbitmq"
     environment:
       - RABBITMQ_DEFAULT_USER=user
       - RABBITMQ_DEFAULT_PASS=password
       - RABBITMQ_DEFAULT_VHOST=my_vhost
       - RABBITMQ_HIPE_COMPILE=1
     volumes:
-        - ./rabbitmq/volumes/data:/var/lib/rabbitmq
-        - ./rabbitmq/volumes/log:/var/log/rabbitmq
+      - ./rabbitmq/volumes/data:/var/lib/rabbitmq
     expose:
-        - 5672
+      - 5672
     ports:
-        - 8080:15672
+      - 8080:15672
     networks:
         infrastructure_amqp_traffic:
           aliases:
             - rabbitmq
     cpu_shares: 1000
     mem_limit: 500m
+
+  rsyslog:
+    restart: always
+    build: rsyslog
+    image: ddd/rsyslog
+    ports:
+      - 55514:514
+    volumes:
+      - ./rsyslog/volumes/data:/var/log/docker
+    networks:
+      infrastructure_rsyslog_traffic:
+        aliases:
+          - rsyslog
+    cpu_shares: 1000
+    mem_limit: 100m

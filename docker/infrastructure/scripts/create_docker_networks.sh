@@ -5,3 +5,4 @@ docker network create infrastructure_sql_traffic
 docker network create infrastructure_nosql_traffic
 docker network create infrastructure_amqp_traffic
 docker network create infrastructure_redis_traffic
+docker network create infrastructure_rsyslog_traffic

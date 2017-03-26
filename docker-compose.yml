@@ -10,12 +10,19 @@ networks:
     external: true
   infrastructure_redis_traffic:
     external: true
+  infrastructure_rsyslog_traffic:
+    external: true
 
 services:
   web1:
     restart: always
     build: docker/services/httpdev
     image: ddd/httpdev
+    logging:
+      driver: syslog
+      options:
+       syslog-address: "tcp://127.0.0.1:55514"
+       tag: "{{.DaemonName}}/web1"
     volumes:
       - .:/var/www/html
     expose:
@@ -38,6 +45,9 @@ services:
       infrastructure_redis_traffic:
         aliases:
           - web1
+      infrastructure_rsyslog_traffic:
+        aliases:
+          - web1
     cpu_shares: 1000
     mem_limit: 500m
 
@@ -45,6 +55,11 @@ services:
       restart: always
       build: docker/services/httpdev
       image: ddd/httpdev
+      logging:
+        driver: syslog
+        options:
+          syslog-address: "tcp://127.0.0.1:55514"
+          tag: "{{.DaemonName}}/web2"
       volumes:
         - .:/var/www/html
       expose:
@@ -65,6 +80,9 @@ services:
           aliases:
             - web2
         infrastructure_redis_traffic:
+          aliases:
+            - web2
+        infrastructure_rsyslog_traffic:
           aliases:
             - web2
       cpu_shares: 1000
