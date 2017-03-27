@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.5
 
 RUN apk --update add logrotate
 RUN echo "*/5 *	* * *	/usr/sbin/logrotate /etc/logrotate.conf" >> /etc/crontabs/root

@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.5
 RUN apk add --no-cache rsyslog
 
 COPY config/rsyslog.conf /etc
