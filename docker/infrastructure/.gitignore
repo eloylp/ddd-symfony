@@ -3,6 +3,5 @@ rsyslog/config/rsyslog.conf
 rsyslog/config/docker.conf
 logrotate/config/logrotate.conf
 haproxy/volumes/tls/*
-!.gitkeep
-**/data
-**/log
+!**/data/.gitkeep
+**/data/*
