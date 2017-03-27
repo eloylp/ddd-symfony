@@ -5,7 +5,7 @@ namespace DDD\Calculator\Application;
 use DDD\Calculator\Domain\CalculatorSumOperation;
 use DDD\Calculator\Domain\CalculatorSumRequest;
 use DDD\Calculator\Domain\CalculatorSumResponse;
-use DDD\Calculator\Domain\Repository\CalculatorSumDoctrineRepository;
+use DDD\Calculator\Domain\Repository\CalculatorSumRepository;
 
 class CalculatorSumService
 {
@@ -13,7 +13,7 @@ class CalculatorSumService
     private $calculatorSumDoctrineRepository;
 
     function __construct(CalculatorSumOperation $calculator,
-                         CalculatorSumDoctrineRepository $calculatorSumDoctrineRepository)
+                         CalculatorSumRepository $calculatorSumDoctrineRepository)
     {
         $this->calculator = $calculator;
         $this->calculatorSumDoctrineRepository = $calculatorSumDoctrineRepository;

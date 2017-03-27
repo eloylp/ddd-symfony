@@ -1,11 +1,9 @@
 services:
   calculator_sum.operation:
     class: DDD\Calculator\Domain\CalculatorSumOperation
-  calculator_sum.doctrine.configurer:
-    class: DDD\Calculator\Infrastructure\Persistence\Doctrine\Config\DoctrineConfigurerAdapter
   calculator_sum.repository:
-    class: DDD\Calculator\Domain\Repository\CalculatorSumDoctrineRepository
-    arguments: ["@calculator_sum.doctrine.configurer"]
+    class: DDD\Calculator\Domain\Repository\CalculatorSumRepository
+    arguments: ["@doctrine.configurer"]
   calculator_sum.service:
     class: DDD\Calculator\Application\CalculatorSumService
     arguments: ["@calculator_sum.operation", "@calculator_sum.repository"]

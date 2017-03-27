@@ -4,9 +4,9 @@ namespace DDD\Calculator\Domain\Repository;
 
 
 use DDD\Calculator\Domain\CalculatorSumResponse;
-use DDD\Calculator\Infrastructure\Persistence\Doctrine\Config\DoctrineConfigurerAdapter;
+use DDD\Infrastructure\Persistence\Doctrine\Configuration\DoctrineConfigurerAdapter;
 
-class CalculatorSumDoctrineRepository
+class CalculatorSumRepository
 {
     private $entityManager;
 

@@ -3,7 +3,9 @@
 parameters:
     #parameter_name: value
 
-services:
-    #service_name:
+services:    #service_name:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+
+  doctrine.configurer:
+      class: DDD\Infrastructure\Persistence\Doctrine\Configuration\DoctrineConfigurerAdapter
