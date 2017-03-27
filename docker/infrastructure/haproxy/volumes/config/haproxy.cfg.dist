@@ -17,6 +17,11 @@ defaults
         option  dontlognull
         option forwardfor
         option http-server-close
+
+        timeout client 10s
+        timeout connect 4s
+        timeout server 30s
+
         stats enable
         stats auth someuser:somepassword
         stats uri /haproxyStats

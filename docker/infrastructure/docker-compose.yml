@@ -71,8 +71,8 @@ services:
     build: mariadb
     volumes:
       - ./mariadb/volumes/data:/var/lib/mysql
-    expose:
-      - 3306
+    ports:
+      - 3306:3306
     #environment:
      # - MYSQL_ROOT_PASSWORD=password
     networks:
