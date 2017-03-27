@@ -3,9 +3,10 @@ FROM php:7.1.0-apache
 COPY ./docker/services/http/symfony.conf /etc/apache2/sites-available
 COPY . /var/www/html
 
-RUN apt-get update -y && apt-get upgrade -y && apt-get dist-upgrade -y \
-    && apt-get install -y libmcrypt-dev zlib1g-dev libcurl4-gnutls-dev \
-    && docker-php-ext-install mysqli pdo pdo_mysql mcrypt zip curl mbstring
+RUN apt-get update \
+    && apt-get install -y libmcrypt-dev zlib1g-dev libcurl4-openssl-dev pkg-config libssl-dev \
+    && docker-php-ext-install pdo pdo_mysql mcrypt curl \
+    && pecl install mongodb && docker-php-ext-enable mongodb
 
 RUN a2enmod rewrite && a2dissite 000-default && a2ensite symfony \
 && echo "#!/bin/sh" > /tmp/modified-entry-point \
