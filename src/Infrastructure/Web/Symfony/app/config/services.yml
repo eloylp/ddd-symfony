@@ -9,3 +9,5 @@ services:    #service_name:
 
   doctrine.configurer:
       class: DDD\Infrastructure\Persistence\Doctrine\Configuration\DoctrineConfigurerAdapter
+  mongo.configurer:
+      class: DDD\Infrastructure\Persistence\Mongo\Configuration\MongoConfigurerAdapter

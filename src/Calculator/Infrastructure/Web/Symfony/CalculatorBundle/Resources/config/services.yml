@@ -3,7 +3,7 @@ services:
     class: DDD\Calculator\Domain\CalculatorSumOperation
   calculator_sum.repository:
     class: DDD\Calculator\Domain\Repository\CalculatorSumRepository
-    arguments: ["@doctrine.configurer"]
+    arguments: ["@doctrine.configurer", "@mongo.configurer"]
   calculator_sum.service:
     class: DDD\Calculator\Application\CalculatorSumService
     arguments: ["@calculator_sum.operation", "@calculator_sum.repository"]
