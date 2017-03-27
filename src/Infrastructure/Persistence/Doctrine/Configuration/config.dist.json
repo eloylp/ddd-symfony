@@ -1,7 +1,7 @@
 {
   "driver": "pdo_mysql",
-  "host": "127.0.0.1",
-  "user": "",
-  "password": "",
-  "dbname": ""
+  "host": "mariadb",
+  "user": "root",
+  "password": "password",
+  "dbname": "test"
 }
