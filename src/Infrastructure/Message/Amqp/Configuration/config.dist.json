@@ -1,0 +1,7 @@
+{
+  "host": "rabbitmq",
+  "port": "5672",
+  "user": "ddd_user",
+  "pass": "ddd",
+  "vhost": "ddd_vhost"
+}
