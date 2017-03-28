@@ -5,3 +5,4 @@ logrotate/config/logrotate.conf
 haproxy/volumes/tls/*
 !**/data/.gitkeep
 **/data/*
+ssh/config/id_rsa.pub

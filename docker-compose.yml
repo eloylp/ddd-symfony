@@ -12,6 +12,8 @@ networks:
     external: true
   infrastructure_rsyslog_traffic:
     external: true
+  infrastructure_ssh_traffic:
+    external: true
 
 services:
   web1:
@@ -26,7 +28,7 @@ services:
     volumes:
       - .:/var/www/html
     expose:
-      - 80
+      - "80"
     environment:
       - APP_ENABLE_DEBUG=a8f5f167f44f4964e6c998dee827110c
     networks:
@@ -48,6 +50,9 @@ services:
       infrastructure_rsyslog_traffic:
         aliases:
           - web1
+      infrastructure_ssh_traffic:
+        aliases:
+          - web1
     cpu_shares: 1000
     mem_limit: 500m
 
@@ -63,7 +68,7 @@ services:
       volumes:
         - .:/var/www/html
       expose:
-        - 80
+        - "80"
       environment:
         - APP_ENABLE_DEBUG=a8f5f167f44f4964e6c998dee827110c
       networks:
@@ -83,6 +88,9 @@ services:
           aliases:
             - web2
         infrastructure_rsyslog_traffic:
+          aliases:
+            - web2
+        infrastructure_ssh_traffic:
           aliases:
             - web2
       cpu_shares: 1000

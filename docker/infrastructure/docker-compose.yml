@@ -12,6 +12,8 @@ networks:
     external: true
   infrastructure_rsyslog_traffic:
     external: true
+  infrastructure_ssh_traffic:
+    external: true
 
 services:
   haproxy:
@@ -26,13 +28,16 @@ services:
         syslog-address: "tcp://127.0.0.1:55514"
         tag: "{{.DaemonName}}/haproxy"
     ports:
-      - 80:80
-      - 443:443
+      - "80:80"
+      - "443:443"
     volumes:
       - ./haproxy/volumes/config:/usr/local/etc/haproxy
       - ./haproxy/volumes/tls:/etc/tls
     networks:
       infrastructure_http_traffic:
+        aliases:
+          - haproxy
+      infrastructure_ssh_traffic:
         aliases:
           - haproxy
     cpu_shares: 1000
@@ -50,9 +55,12 @@ services:
         syslog-address: "tcp://127.0.0.1:55514"
         tag: "{{.DaemonName}}/redis"
     expose:
-      - 6379
+      - "6379"
     networks:
       infrastructure_redis_traffic:
+        aliases:
+          - redis
+      infrastructure_ssh_traffic:
         aliases:
           - redis
     cpu_shares: 1000
@@ -71,12 +79,15 @@ services:
     build: mariadb
     volumes:
       - ./mariadb/volumes/data:/var/lib/mysql
-    ports:
-      - 3306:3306
+    expose:
+      - 3306
     #environment:
      # - MYSQL_ROOT_PASSWORD=password
     networks:
       infrastructure_sql_traffic:
+        aliases:
+          - mariadb
+      infrastructure_ssh_traffic:
         aliases:
           - mariadb
     cpu_shares: 1000
@@ -100,6 +111,9 @@ services:
     networks:
       infrastructure_nosql_traffic:
         aliases:
+          - mongodb
+      infrastructure_ssh_traffic:
+         aliases:
           - mongodb
     command: "--storageEngine wiredTiger"
     cpu_shares: 1000
@@ -125,10 +139,11 @@ services:
       - ./rabbitmq/volumes/data:/var/lib/rabbitmq
     expose:
       - 5672
-    ports:
-      - 8080:15672
     networks:
         infrastructure_amqp_traffic:
+          aliases:
+            - rabbitmq
+        infrastructure_ssh_traffic:
           aliases:
             - rabbitmq
     cpu_shares: 1000
@@ -139,11 +154,14 @@ services:
     build: rsyslog
     image: ddd/rsyslog
     ports:
-      - 55514:514
+      - "55514:514"
     volumes:
       - ./rsyslog/volumes/data:/var/log/docker
     networks:
       infrastructure_rsyslog_traffic:
+        aliases:
+          - rsyslog
+      infrastructure_ssh_traffic:
         aliases:
           - rsyslog
     cpu_shares: 300
@@ -166,5 +184,28 @@ services:
         infrastructure_rsyslog_traffic:
           aliases:
             - logrotate
+        infrastructure_ssh_traffic:
+          aliases:
+            - logrotate
+      cpu_shares: 300
+      mem_limit: 100m
+
+  ssh:
+      restart: always
+      build: ssh
+      image: ddd/ssh
+      depends_on:
+        - rsyslog
+      ports:
+        - "2222:22"
+      logging:
+        driver: syslog
+        options:
+          syslog-address: "tcp://127.0.0.1:55514"
+          tag: "{{.DaemonName}}/ssh"
+      networks:
+        infrastructure_ssh_traffic:
+          aliases:
+            - ssh
       cpu_shares: 300
       mem_limit: 100m
