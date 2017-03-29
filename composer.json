@@ -30,6 +30,7 @@
     "sensio/distribution-bundle": "^5.0",
     "sensio/framework-extra-bundle": "^3.0.2",
     "snc/redis-bundle": "2.x-dev",
+    "swiftmailer/swiftmailer": "^5.4",
     "symfony/monolog-bundle": "^3.0.2",
     "symfony/polyfill-apcu": "^1.0",
     "symfony/symfony": "3.2.*",
