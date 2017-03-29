@@ -3,13 +3,13 @@
 namespace DDD\Infrastructure\Message\Amqp;
 
 
-use PhpAmqpLib\Connection\AMQPStreamConnection;
+use DDD\Infrastructure\Message\Amqp\Configuration\AmqpConnectionFactory;
 
-class EventProducer extends AmqpDefaultProducer
+class EventProducer extends DefaultProducerAbstract
 {
-    function __construct(AMQPStreamConnection $amqpStreamConnection)
+    function __construct(AmqpConnectionFactory $amqpConnectionFactory)
     {
-        parent::__construct($amqpStreamConnection, Exchanges::DDD_EXCHANGE, Queues::EVENTS_QUEUE, RoutingKeys::EVENT);
+        parent::__construct($amqpConnectionFactory, Exchanges::DDD_EXCHANGE, Queues::EVENTS_QUEUE, RoutingKeys::EVENT);
     }
 
 }

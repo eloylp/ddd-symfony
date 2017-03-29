@@ -3,9 +3,9 @@
 
 namespace DDD\Infrastructure\Message\Amqp;
 
-use PhpAmqpLib\Connection\AMQPStreamConnection;
+use DDD\Infrastructure\Message\Amqp\Configuration\AmqpConnectionFactory;
 
-abstract class AmqpDefaultConsumer
+abstract class DefaultConsumerAbstract
 {
     protected $connection;
     protected $channel;
@@ -16,7 +16,7 @@ abstract class AmqpDefaultConsumer
     protected $consumerLogic;
     protected $consumerTag;
 
-    function __construct(AMQPStreamConnection $amqpStreamConnection,
+    function __construct(AmqpConnectionFactory $amqpConnectionFactory,
                          string $exchange,
                          string $queue,
                          ConsumerLogicInterface $consumerLogic,
@@ -30,7 +30,7 @@ abstract class AmqpDefaultConsumer
         $this->exchange = $exchange;
         $this->exchangeType = $exchangeType;
         $this->queue = $queue;
-        $this->connection = $amqpStreamConnection;
+        $this->connection = $amqpConnectionFactory->getAmqpConnection();
 
         register_shutdown_function([$this, "terminate"]);
     }
@@ -50,6 +50,7 @@ abstract class AmqpDefaultConsumer
             [$this->consumerLogic, 'processMessage']);
 
         while (count($this->channel->callbacks)) {
+            gc_collect_cycles();
             $this->channel->wait();
         }
     }

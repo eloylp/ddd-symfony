@@ -4,6 +4,9 @@ services:
   calculator_sum.repository:
     class: DDD\Calculator\Domain\Repository\CalculatorSumRepository
     arguments: ["@doctrine.configurer", "@mongo.configurer"]
+  calculator.event.store:
+    class: DDD\Calculator\Domain\Repository\CalculatorEventStore
+    arguments: ["@rabbitmq.event.producer"]
   calculator_sum.service:
     class: DDD\Calculator\Application\CalculatorSumService
-    arguments: ["@calculator_sum.operation", "@calculator_sum.repository"]
+    arguments: ["@calculator_sum.operation", "@calculator_sum.repository", "@calculator.event.store"]
