@@ -92,3 +92,28 @@ services:
       cpu_shares: 1000
       mem_limit: 500m
 
+  eventconsumer:
+      restart: always
+      build: docker/services/consumer
+      image: ddd/consumerdev
+
+      logging:
+        driver: syslog
+        options:
+          syslog-address: "tcp://127.0.0.1:55514"
+          tag: "{{.DaemonName}}/eventconsumer"
+      volumes:
+        - .:/ddd
+      networks:
+        infrastructure_nosql_traffic:
+          aliases:
+            - eventconsumer
+        infrastructure_amqp_traffic:
+          aliases:
+            - eventconsumer
+        infrastructure_rsyslog_traffic:
+          aliases:
+            - eventconsumer
+      cpu_shares: 1000
+      mem_limit: 120m
+

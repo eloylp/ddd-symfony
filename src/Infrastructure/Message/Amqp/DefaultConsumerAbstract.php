@@ -4,6 +4,8 @@
 namespace DDD\Infrastructure\Message\Amqp;
 
 use DDD\Infrastructure\Message\Amqp\Configuration\AmqpConnectionFactory;
+use Exception;
+use PhpAmqpLib\Exception\AMQPRuntimeException;
 
 abstract class DefaultConsumerAbstract
 {
@@ -37,28 +39,36 @@ abstract class DefaultConsumerAbstract
 
     public function start()
     {
-        $this->channel = $this->connection->channel();
-        $this->channel->queue_declare($this->queue, false, true, false, false);
-        $this->channel->exchange_declare($this->exchange, $this->exchangeType, false, true, false);
-        $this->channel->queue_bind($this->queue, $this->exchange, $this->routingKey);
-        $this->channel->basic_consume($this->queue,
-            $this->consumerTag,
-            false,
-            false,
-            false,
-            false,
-            [$this->consumerLogic, 'processMessage']);
+        try {
 
-        while (count($this->channel->callbacks)) {
-            gc_collect_cycles();
-            $this->channel->wait();
+            $this->writeOut("Starting consumer " . $this->consumerTag);
+            $this->channel = $this->connection->channel();
+            $this->channel->queue_declare($this->queue, false, true, false, false);
+            $this->channel->exchange_declare($this->exchange, $this->exchangeType, false, true, false);
+            $this->channel->queue_bind($this->queue, $this->exchange, $this->routingKey);
+            $this->channel->basic_consume($this->queue,
+                $this->consumerTag,
+                false,
+                false,
+                false,
+                false,
+                [$this->consumerLogic, 'processMessage']);
+
+            while (count($this->channel->callbacks)) {
+                gc_collect_cycles();
+                $this->channel->wait();
+            }
+
+        } catch (AMQPRuntimeException $e) {
+            $this->writeOut("Finished consumer");
+        } catch (Exception $e) {
+
+            $this->writeOut("Non identified exception:");
+            $this->writeOut($e->getMessage());
+            if ($e->getPrevious()) {
+                $this->writeOut($e->getPrevious()->getMessage());
+            }
         }
-    }
-
-    public function terminate()
-    {
-        $this->channel->close();
-        $this->connection->close();
     }
 
     private function checkSignals()
@@ -75,18 +85,25 @@ abstract class DefaultConsumerAbstract
             pcntl_signal(SIGALRM, [$this, 'alarmHandler']);
 
         } else {
-            echo 'Unable to process signals.' . PHP_EOL;
+            $this->writeOut("Unable to process signals.");
             exit(1);
         }
     }
 
+    public function alarmHandler($signalNumber)
+    {
+        $this->writeOut("Handling alarm: #' . $signalNumber");
+        $this->writeOut(memory_get_usage(true));
+        return;
+    }
+
     public function signalHandler($signalNumber)
     {
-        echo 'Handling signal: #' . $signalNumber . PHP_EOL;
+        $this->writeOut("Handling signal: #' . $signalNumber .");
         switch ($signalNumber) {
             case SIGTERM:  // 15 : supervisor default stop
             case SIGQUIT:  // 3  : kill -s QUIT
-                $this->stopHard();
+                $this->terminate();
                 break;
             case SIGINT:   // 2  : ctrl+c
                 $this->terminate();
@@ -110,13 +127,13 @@ abstract class DefaultConsumerAbstract
 
     public function stop()
     {
-        echo 'Stopping consumer by cancel command.' . PHP_EOL;
+        $this->writeOut("Stopping consumer by cancel command.");
         $this->channel->basic_cancel($this->consumerTag, false, true);
     }
 
     public function restart()
     {
-        echo 'Restarting consumer.' . PHP_EOL;
+        $this->writeOut('Restarting consumer.');
         $this->stopSoft();
         $this->start();
     }
@@ -127,10 +144,17 @@ abstract class DefaultConsumerAbstract
         $this->channel->close();
     }
 
-    public function stopHard()
+    public function terminate()
     {
-        echo 'Stopping consumer by closing connection.' . PHP_EOL;
+        $this->channel->close();
         $this->connection->close();
+    }
+
+    private function writeOut($message)
+    {
+        $out = fopen('php://output', 'w'); //output handler
+        fputs($out, "$message\n"); //writing output operation
+        fclose($out); //closing handler
     }
 
 }

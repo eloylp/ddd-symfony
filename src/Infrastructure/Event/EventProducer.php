@@ -1,9 +1,13 @@
 <?php
 
-namespace DDD\Infrastructure\Message\Amqp;
+namespace DDD\Infrastructure\Event;
 
 
 use DDD\Infrastructure\Message\Amqp\Configuration\AmqpConnectionFactory;
+use DDD\Infrastructure\Message\Amqp\DefaultProducerAbstract;
+use DDD\Infrastructure\Message\Amqp\Exchanges;
+use DDD\Infrastructure\Message\Amqp\Queues;
+use DDD\Infrastructure\Message\Amqp\RoutingKeys;
 
 class EventProducer extends DefaultProducerAbstract
 {

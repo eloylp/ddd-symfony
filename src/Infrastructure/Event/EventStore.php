@@ -3,7 +3,6 @@
 
 namespace DDD\Infrastructure\Event;
 
-use DDD\Infrastructure\Message\Amqp\EventProducer;
 
 class EventStore
 {

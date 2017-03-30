@@ -14,7 +14,7 @@ services:    #service_name:
   rabbitmq.configurer:
       class: DDD\Infrastructure\Message\Amqp\Configuration\AmqpConnectionFactory
   rabbitmq.event.producer:
-      class: DDD\Infrastructure\Message\Amqp\EventProducer
+      class: DDD\Infrastructure\Event\EventProducer
       arguments: ["@rabbitmq.configurer"]
   event.store:
       class: DDD\Infrastructure\Event\EventStore
