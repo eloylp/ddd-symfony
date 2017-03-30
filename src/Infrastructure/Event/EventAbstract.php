@@ -22,4 +22,37 @@ abstract class EventAbstract implements JsonSerializable
             $this->time = new DateTime();
         }
     }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getTime(): DateTime
+    {
+        return $this->time;
+    }
+
+    /**
+     * @return array
+     */
+    public function getContext(): array
+    {
+        return $this->context;
+    }
+
+    function jsonSerialize()
+    {
+        return [
+            "type" => $this->getType(),
+            "time" => $this->getTime(),
+            "context" => $this->getContext()
+        ];
+    }
 }

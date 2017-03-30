@@ -15,12 +15,4 @@ class CalculatorSumEvent extends EventAbstract
         parent::__construct(CalculatorEvents::CALCULATOR_SUM_EVENT, $context, $time);
     }
 
-    function jsonSerialize()
-    {
-        return [
-            "type" => $this->type,
-            "time" => $this->time,
-            "context" => $this->context
-        ];
-    }
 }

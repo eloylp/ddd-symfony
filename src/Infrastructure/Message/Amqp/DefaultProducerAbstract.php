@@ -18,7 +18,7 @@ abstract class DefaultProducerAbstract
                          string $exchange,
                          string $queue,
                          string $routingKey,
-                         string $exchangeType = "direct")
+                         string $exchangeType = AMQP_EX_TYPE_DIRECT)
     {
         $this->exchange = $exchange;
         $this->routingKey = $routingKey;

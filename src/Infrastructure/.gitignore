@@ -2,3 +2,4 @@ Persistence/Doctrine/Configuration/config.json
 Persistence/Mongo/Configuration/config.json
 Message/Amqp/Configuration/config.json
 Mailer/Configuration/config.json
+Templating/cache/*
