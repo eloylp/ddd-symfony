@@ -40,13 +40,13 @@ class MailerCommandHandler implements ConsumerLogicInterface
 
         } catch (MailerException $e) {
 
-            $message->delivery_info['channel']->basic_nack($message->delivery_info['delivery_tag']);
+            $message->delivery_info['channel']->basic_nack($message->delivery_info['delivery_tag'], false, true);
 
             throw $e;
 
         } catch (TemplatingEngineException $e) {
 
-            $message->delivery_info['channel']->basic_nack($message->delivery_info['delivery_tag']);
+            $message->delivery_info['channel']->basic_nack($message->delivery_info['delivery_tag'], false, true);
 
             throw $e;
         }
