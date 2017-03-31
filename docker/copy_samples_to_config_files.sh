@@ -10,6 +10,7 @@ cp ./infrastructure/haproxy/volumes/config/haproxy.cfg.dist ./infrastructure/hap
 cp ./infrastructure/logrotate/config/logrotate.conf.dist ./infrastructure/logrotate/config/logrotate.conf
 
 cp ./infrastructure/rsyslog/config/docker.conf.dist ./infrastructure/rsyslog/config/docker.conf
+cp ./infrastructure/rsyslog/config/app.conf.dist ./infrastructure/rsyslog/config/app.conf
 cp ./infrastructure/rsyslog/config/rsyslog.conf.dist ./infrastructure/rsyslog/config/rsyslog.conf
 
 cp ./services/http/symfony.conf.dist ./services/http/symfony.conf
