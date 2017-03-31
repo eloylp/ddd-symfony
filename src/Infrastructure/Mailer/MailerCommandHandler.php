@@ -30,21 +30,25 @@ class MailerCommandHandler implements ConsumerLogicInterface
     {
         try {
 
-            $amqpBody = json_decode($message->getBody());
+            $amqpBody = json_decode($message->getBody(), true);
             $rendered = $this->templateEngine->render($amqpBody['template_name'], $amqpBody['template_data']);
             $this->mailer->sendMessage($amqpBody['to'], $amqpBody['subject'], $rendered);
 
             $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
 
-            $this->eventStore->append(new MailerSuccessEvent($amqpBody));
+            $this->eventStore->append(new MailerSuccessEvent($amqpBody, $rendered));
 
         } catch (MailerException $e) {
 
             $message->delivery_info['channel']->basic_nack($message->delivery_info['delivery_tag']);
 
+            throw $e;
+
         } catch (TemplatingEngineException $e) {
 
             $message->delivery_info['channel']->basic_nack($message->delivery_info['delivery_tag']);
+
+            throw $e;
         }
 
     }

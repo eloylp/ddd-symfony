@@ -32,7 +32,7 @@ class TemplateAdapter
 
         } catch (Exception $e) {
 
-            throw new TemplatingEngineException();
+            throw new TemplatingEngineException($e->getMessage());
         }
     }
 }

@@ -2,8 +2,8 @@
   "host": "smtp.example.com",
   "port": "25",
   "user": "user",
-  "senderAddress": "sender@example.com",
-  "senderName": "sender_name",
+  "sender_address": "sender@example.com",
+  "sender_name": "sender_name",
   "password": "password",
   "security": "tls"
 }

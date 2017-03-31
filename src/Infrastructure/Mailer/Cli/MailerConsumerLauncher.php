@@ -20,5 +20,5 @@ $mailCommandHandler = new MailerCommandHandler(
     new TemplateAdapter(new FolderRegistry()),
     new EventStore(new EventProducer(new AmqpConnectionFactory()))
 );
-$mailerCommandHandler = new MailerConsumer($amqpConnectionFactory, $mailCommandHandler, "Mail_command_handler" . uniqid());
-$mailerCommandHandler->start();
+$mailerCommandConsumer = new MailerConsumer($amqpConnectionFactory, $mailCommandHandler, "Mail_command_handler" . uniqid());
+$mailerCommandConsumer->start();

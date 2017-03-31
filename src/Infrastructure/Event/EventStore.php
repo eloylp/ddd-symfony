@@ -13,7 +13,7 @@ class EventStore
         $this->eventProducer = $eventProducer;
     }
 
-    public function append(EventAbstract $event)
+    public function append(EventInterface $event)
     {
         $this->eventProducer->publish($event);
     }

@@ -34,7 +34,7 @@ class MailerAdapter
     {
         try {
             $message = Swift_Message::newInstance($subject)
-                ->setFrom(array($this->config['senderAddress'] => $this->config['senderName']))
+                ->setFrom(array($this->config['sender_address'] => $this->config['sender_name']))
                 ->setTo($to)
                 ->setBody($body);
             $this->mailer->send($message);

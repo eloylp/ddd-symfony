@@ -94,8 +94,8 @@ services:
 
   eventconsumer:
       restart: always
-      build: docker/services/consumer
-      image: ddd/consumerdev
+      build: docker/services/eventconsumer
+      image: ddd/consumer
 
       logging:
         driver: syslog
@@ -116,4 +116,29 @@ services:
             - eventconsumer
       cpu_shares: 1000
       mem_limit: 120m
+
+    mailerconsumer:
+        restart: always
+        build: docker/services/mailerconsumer
+        image: ddd/mailerconsumer
+
+        logging:
+          driver: syslog
+          options:
+            syslog-address: "tcp://127.0.0.1:55514"
+            tag: "{{.DaemonName}}/mailerconsumer"
+        volumes:
+          - .:/ddd
+        networks:
+          infrastructure_nosql_traffic:
+            aliases:
+              - mailerconsumer
+          infrastructure_amqp_traffic:
+            aliases:
+              - mailerconsumer
+          infrastructure_rsyslog_traffic:
+            aliases:
+              - mailerconsumer
+        cpu_shares: 1000
+        mem_limit: 120m
 

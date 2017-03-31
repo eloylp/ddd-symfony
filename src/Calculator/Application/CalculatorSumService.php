@@ -36,7 +36,7 @@ class CalculatorSumService
         $time = $this->getTime();
         $result = $this->calculator->sum($calculatorRequest->getSum1(), $calculatorRequest->getSum2());
         $calculatorSumResponse = new CalculatorSumResponse($result, $this->getTime() - $time);
-        $calculatorSumEvent = new CalculatorSumEvent($calculatorSumResponse->toArray());
+        $calculatorSumEvent = new CalculatorSumEvent($result);
         $this->calculatorEventStore->append($calculatorSumEvent);
         $this->calculatorSumDoctrineRepository->saveCalculatorSumResponse($calculatorSumResponse);
         return $calculatorSumResponse;

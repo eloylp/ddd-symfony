@@ -24,7 +24,7 @@ abstract class DefaultConsumerAbstract
                          ConsumerLogicInterface $consumerLogic,
                          string $consumerTag,
                          string $routingKey,
-                         string $exchangeType = AMQP_EX_TYPE_DIRECT)
+                         string $exchangeType = ExchangeTypes::AMQP_DIRECT)
     {
         $this->checkSignals();
         $this->consumerTag = $consumerTag;
