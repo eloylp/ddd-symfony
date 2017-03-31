@@ -1,0 +1,3 @@
+$FileCreateMode 0644
+if $msg contains 'app_symfony' then /var/log/docker/app/app.log
+$FileCreateMode 0600

@@ -13,7 +13,7 @@ RUN yes | pecl install xdebug \
 
 RUN apt-get update \
     && apt-get install -y libmcrypt-dev zlib1g-dev libcurl4-openssl-dev pkg-config libssl-dev \
-    && docker-php-ext-install pdo pdo_mysql mcrypt curl bcmath \
+    && docker-php-ext-install pdo pdo_mysql mcrypt curl bcmath sockets \
     && pecl install mongodb && docker-php-ext-enable mongodb
 
 RUN a2enmod rewrite && a2dissite 000-default && a2ensite symfony \
