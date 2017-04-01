@@ -4,7 +4,7 @@ namespace DDD\Calculator\Domain\Repository;
 
 
 use DDD\Calculator\Domain\CalculatorSumResponse;
-use DDD\Infrastructure\Persistence\Doctrine\Configuration\DoctrineConfigurerAdapter;
+use DDD\Infrastructure\Persistence\Doctrine\Orm\Configuration\DoctrineConfigurerAdapter;
 use DDD\Infrastructure\Persistence\Mongo\Configuration\MongoConfigurerAdapter;
 
 class CalculatorSumRepository
