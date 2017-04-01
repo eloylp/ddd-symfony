@@ -4,28 +4,27 @@ namespace DDD\Calculator\Domain\Repository;
 
 
 use DDD\Calculator\Domain\CalculatorSumResponse;
-use DDD\Infrastructure\Persistence\Doctrine\Orm\Configuration\DoctrineConfigurerAdapter;
-use DDD\Infrastructure\Persistence\Mongo\Configuration\MongoConfigurerAdapter;
+use DDD\Infrastructure\Persistence\Doctrine\Odm\Configuration\DoctrineOdmConfigurerAdapter;
+use DDD\Infrastructure\Persistence\Doctrine\Orm\Configuration\DoctrineOrmConfigurerAdapter;
 
 class CalculatorSumRepository
 {
     private $entityManager;
-    private $mongoClient;
+    private $documentManager;
 
-    function __construct(DoctrineConfigurerAdapter $doctrineConfigurerAdapter,
-    MongoConfigurerAdapter $mongoConfigurerAdapter
+    function __construct(DoctrineOrmConfigurerAdapter $doctrineConfigurerAdapter,
+                         DoctrineOdmConfigurerAdapter $doctrineOdmConfigurerAdapter
     )
     {
         $this->entityManager = $doctrineConfigurerAdapter->getEntityManager();
-        $this->mongoClient = $mongoConfigurerAdapter->getMongoClient();
+        $this->documentManager = $doctrineOdmConfigurerAdapter->getDocumentManager();
     }
 
     public function saveCalculatorSumResponse(CalculatorSumResponse $calculatorSumResponse)
     {
         $this->entityManager->persist($calculatorSumResponse);
-
-        $this->mongoClient->sum_response->insertOne($calculatorSumResponse->toArray());
-
+        $this->documentManager->persist($calculatorSumResponse);
+        $this->documentManager->flush();
         $this->entityManager->flush();
     }
 }

@@ -1,4 +1,5 @@
 Persistence/Doctrine/Orm/Configuration/config.json
+Persistence/Doctrine/Odm/Configuration/config.json
 Persistence/Mongo/Configuration/config.json
 Message/Amqp/Configuration/config.json
 Mailer/Configuration/config.json

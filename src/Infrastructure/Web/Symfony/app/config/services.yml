@@ -12,8 +12,10 @@ services:
     arguments:
       format: "%%datetime%% | %%extra.app%% | %%channel%%.%%level_name%%: %%message%% %%context%%\n"
 
-  doctrine.configurer:
-      class: DDD\Infrastructure\Persistence\Doctrine\Orm\Configuration\DoctrineConfigurerAdapter
+  doctrine.orm.configurer:
+      class: DDD\Infrastructure\Persistence\Doctrine\Orm\Configuration\DoctrineOrmConfigurerAdapter
+  doctrine.odm.configurer:
+      class: DDD\Infrastructure\Persistence\Doctrine\Odm\Configuration\DoctrineOdmConfigurerAdapter
   mongo.configurer:
       class: DDD\Infrastructure\Persistence\Mongo\Configuration\MongoConfigurerAdapter
   rabbitmq.configurer:
