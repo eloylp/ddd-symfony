@@ -9,6 +9,7 @@ use DDD\Infrastructure\Event\EventInterface;
 
 class CalculatorSumEvent implements EventInterface
 {
+    private $id;
     private $type = CalculatorEvents::CALCULATOR_SUM_EVENT;
     private $version = 0;
     private $time;
@@ -72,5 +73,21 @@ class CalculatorSumEvent implements EventInterface
     public function getResult()
     {
         return $this->result;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 }
