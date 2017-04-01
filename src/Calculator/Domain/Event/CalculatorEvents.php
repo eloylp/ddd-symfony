@@ -5,6 +5,6 @@ namespace DDD\Calculator\Domain\Event;
 
 class CalculatorEvents
 {
-    const CALCULATOR_SUM_EVENT = "ddd.calculator.sum.event";
+    const CALCULATOR_SUMMED_EVENT = "ddd.calculator.summed.event";
 
 }

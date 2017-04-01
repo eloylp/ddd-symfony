@@ -33,7 +33,7 @@ class EventHandler implements ConsumerLogicInterface
 
             $event = json_decode($message->getBody(), true);
 
-            if ($event['type'] == CalculatorEvents::CALCULATOR_SUM_EVENT) {
+            if ($event['type'] == CalculatorEvents::CALCULATOR_SUMMED_EVENT) {
 
                 $this->mailerCommandPublisher->publish(new MailerCommand(
                     $this->mailerConfig['sender_address'],

@@ -7,9 +7,9 @@ use DateTime;
 use DDD\Infrastructure\Event\EventInterface;
 use DDD\Infrastructure\Mailer\Command\MailerCommand;
 
-class MailerSuccessEvent implements EventInterface
+class EmailSentEvent implements EventInterface
 {
-    private $type = MailerEvents::EMAIL_SUCCESS;
+    private $type = MailerEvents::EMAIL_SENT;
     private $version = 0;
     private $time;
     private $messageExecutedCommand;

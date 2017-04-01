@@ -7,10 +7,10 @@ namespace DDD\Calculator\Domain\Event;
 use DateTime;
 use DDD\Infrastructure\Event\EventInterface;
 
-class CalculatorSumEvent implements EventInterface
+class CalculatorSummedEvent implements EventInterface
 {
     private $id;
-    private $type = CalculatorEvents::CALCULATOR_SUM_EVENT;
+    private $type = CalculatorEvents::CALCULATOR_SUMMED_EVENT;
     private $version = 0;
     private $time;
     private $result;

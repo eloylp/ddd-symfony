@@ -5,7 +5,7 @@ namespace DDD\Calculator\Application;
 use DDD\Calculator\Domain\CalculatorSumOperation;
 use DDD\Calculator\Domain\CalculatorSumRequest;
 use DDD\Calculator\Domain\CalculatorSumResponse;
-use DDD\Calculator\Domain\Event\CalculatorSumEvent;
+use DDD\Calculator\Domain\Event\CalculatorSummedEvent;
 use DDD\Calculator\Domain\Repository\CalculatorEventStore;
 use DDD\Calculator\Domain\Repository\CalculatorSumRepository;
 
@@ -36,7 +36,7 @@ class CalculatorSumService
         $time = $this->getTime();
         $result = $this->calculator->sum($calculatorRequest->getSum1(), $calculatorRequest->getSum2());
         $calculatorSumResponse = new CalculatorSumResponse($result, $this->getTime() - $time);
-        $calculatorSumEvent = new CalculatorSumEvent($result);
+        $calculatorSumEvent = new CalculatorSummedEvent($result);
         $this->calculatorEventStore->append($calculatorSumEvent);
         $this->calculatorSumDoctrineRepository->saveCalculatorSumResponse($calculatorSumResponse);
         return $calculatorSumResponse;

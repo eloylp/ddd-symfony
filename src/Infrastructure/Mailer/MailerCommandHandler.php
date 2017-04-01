@@ -4,7 +4,7 @@ namespace DDD\Infrastructure\Mailer;
 
 
 use DDD\Infrastructure\Event\EventStore;
-use DDD\Infrastructure\Mailer\Event\MailerSuccessEvent;
+use DDD\Infrastructure\Mailer\Event\EmailSentEvent;
 use DDD\Infrastructure\Mailer\Exception\MailerException;
 use DDD\Infrastructure\Message\Amqp\ConsumerLogicInterface;
 use DDD\Infrastructure\Templating\Exception\TemplatingEngineException;
@@ -36,7 +36,7 @@ class MailerCommandHandler implements ConsumerLogicInterface
 
             $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
 
-            $this->eventStore->append(new MailerSuccessEvent($amqpBody, $rendered));
+            $this->eventStore->append(new EmailSentEvent($amqpBody, $rendered));
 
         } catch (MailerException $e) {
 
