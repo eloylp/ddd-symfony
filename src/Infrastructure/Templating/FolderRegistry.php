@@ -9,7 +9,7 @@ class FolderRegistry
     public function getFolders()
     {
         return [
-            __DIR__ . "/../../Calculator/Infrastructure/Templating/templates"
+            __DIR__ . "/../Web/Symfony/src/CalculatorBundle/Resources/mail"
         ];
     }
 }

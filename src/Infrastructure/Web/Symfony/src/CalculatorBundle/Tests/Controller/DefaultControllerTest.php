@@ -1,5 +1,5 @@
 <?php
-namespace DDD\Calculator\Infrastructure\Web\Symfony\CalculatorBundle\Tests\Controller;
+namespace DDD\Infrastructure\Web\Symfony\CalculatorBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

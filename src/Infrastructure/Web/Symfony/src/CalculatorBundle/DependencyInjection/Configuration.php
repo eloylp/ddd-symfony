@@ -1,6 +1,6 @@
 <?php
 
-namespace DDD\Calculator\Infrastructure\Web\Symfony\CalculatorBundle\DependencyInjection;
+namespace DDD\Infrastructure\Web\Symfony\CalculatorBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

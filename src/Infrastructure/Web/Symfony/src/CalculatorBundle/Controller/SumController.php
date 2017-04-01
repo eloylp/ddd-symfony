@@ -1,5 +1,5 @@
 <?php
-namespace DDD\Calculator\Infrastructure\Web\Symfony\CalculatorBundle\Controller;
+namespace DDD\Infrastructure\Web\Symfony\CalculatorBundle\Controller;
 
 
 use DDD\Calculator\Domain\CalculatorSumRequest;

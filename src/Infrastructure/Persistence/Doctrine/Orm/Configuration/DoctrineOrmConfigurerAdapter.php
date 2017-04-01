@@ -12,7 +12,7 @@ class DoctrineOrmConfigurerAdapter
     {
         $dbParams = json_decode(file_get_contents(__DIR__ . '/config.json'), true);
         $paths = [
-            __DIR__ . '/../../../../../Calculator/Infrastructure/Persistence/Doctrine/Orm/Mappings'
+            __DIR__ . '/../Mappings'
         ];
         $config = Setup::createXMLMetadataConfiguration($paths);
         $entityManager = EntityManager::create($dbParams, $config);
