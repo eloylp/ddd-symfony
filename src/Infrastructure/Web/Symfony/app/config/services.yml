@@ -20,12 +20,19 @@ services:
       class: DDD\Infrastructure\Persistence\Mongo\Configuration\MongoConfigurerAdapter
   rabbitmq.configurer:
       class: DDD\Infrastructure\Message\Amqp\Configuration\AmqpConnectionFactory
+
+
   rabbitmq.event.producer:
-      class: DDD\Infrastructure\Event\EventProducer
+      class: DDD\Infrastructure\Message\Amqp\Activity\ActivityProducer
       arguments: ["@rabbitmq.configurer"]
-  event.store:
-      class: DDD\Infrastructure\Event\EventStore
-      arguments: ["@rabbitmq.event.producer"]
+
+  event.repository:
+      class: DDD\Infrastructure\Persistence\Doctrine\Odm\EventStoreRepository
+      arguments: ["@doctrine.odm.configurer"]
+
+  rabbitmq.mail.producer:
+      class: DDD\Infrastructure\Message\Amqp\Mailer\MailerProducer
+      arguments: ["@rabbitmq.configurer"]
 
 
 

@@ -4,10 +4,12 @@
 namespace DDD\Infrastructure\Message\Amqp;
 
 
+use DDD\Calculator\Domain\Model\MessagePublisher;
 use DDD\Infrastructure\Message\Amqp\Configuration\AmqpConnectionFactory;
+use JsonSerializable;
 use PhpAmqpLib\Message\AMQPMessage;
 
-abstract class DefaultProducerAbstract
+abstract class DefaultProducerAbstract implements MessagePublisher
 {
     private $connection;
     private $channel;
@@ -29,7 +31,7 @@ abstract class DefaultProducerAbstract
         $this->channel->queue_bind($queue, $this->exchange, $routingKey);
     }
 
-    public function publish($msgBody)
+    public function publish(JsonSerializable $msgBody)
     {
         $this->channel->basic_publish(
             new AMQPMessage(

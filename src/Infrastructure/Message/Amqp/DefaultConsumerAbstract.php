@@ -21,7 +21,7 @@ abstract class DefaultConsumerAbstract
     function __construct(AmqpConnectionFactory $amqpConnectionFactory,
                          string $exchange,
                          string $queue,
-                         ConsumerLogicInterface $consumerLogic,
+                         ConsumerLogic $consumerLogic,
                          string $consumerTag,
                          string $routingKey,
                          string $exchangeType = ExchangeTypes::AMQP_DIRECT)

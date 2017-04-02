@@ -1,0 +1,14 @@
+<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
+                    http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
+
+
+    <document name="DDD\Calculator\Domain\Model\CalculatorSummedEvent" collection="events">
+        <field fieldName="id" id="true"/>
+        <field fieldName="type" type="string" index="true"/>
+        <field fieldName="version" type="int" index="true"/>
+        <field fieldName="time" type="date"/>
+        <field fieldName="result" type="int"/>
+    </document>
+</doctrine-mongo-mapping>

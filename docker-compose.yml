@@ -98,7 +98,7 @@ services:
 
   eventconsumer:
     restart: always
-    build: docker/services/eventconsumer
+    build: docker/services/eventconsumerdev
     image: ddd/consumerdev
 
     logging:
@@ -123,7 +123,7 @@ services:
 
   mailerconsumer:
       restart: always
-      build: docker/services/mailerconsumer
+      build: docker/services/mailerconsumerdev
       image: ddd/mailerconsumer
 
       logging:

@@ -1,12 +1,24 @@
 services:
+
+  calculator.persist.event.subscriber:
+    class: DDD\Calculator\Domain\Model\PersistEventSubscriber
+    arguments: ["@event.repository"]
+
+  calculator.message.event.subscriber:
+      class: DDD\Calculator\Domain\Model\MessageEventSubscriber
+      arguments: ["@rabbitmq.event.producer"]
+
+  calculator.event.publisher:
+    class: DDD\Calculator\Domain\Model\EventPublisher
+    arguments: ["@calculator.persist.event.subscriber", "@calculator.message.event.subscriber"]
+
   calculator_sum.operation:
-    class: DDD\Calculator\Domain\CalculatorSumOperation
+      class: DDD\Calculator\Domain\Model\CalculatorSumOperation
+
   calculator_sum.repository:
-    class: DDD\Calculator\Domain\Repository\CalculatorSumRepository
-    arguments: ["@doctrine.orm.configurer", "@doctrine.odm.configurer"]
-  calculator.event.store:
-    class: DDD\Calculator\Domain\Repository\CalculatorEventStore
-    arguments: ["@rabbitmq.event.producer"]
+      class: DDD\Infrastructure\Persistence\Doctrine\CalculatorSumDoctrineRepository
+      arguments: ["@doctrine.orm.configurer", "@doctrine.odm.configurer"]
+
   calculator_sum.service:
-    class: DDD\Calculator\Application\CalculatorSumService
-    arguments: ["@calculator_sum.operation", "@calculator_sum.repository", "@calculator.event.store"]
+    class: DDD\Calculator\Application\Sum\CalculatorSumService
+    arguments: ["@calculator_sum.operation", "@calculator_sum.repository", "@calculator.event.publisher"]

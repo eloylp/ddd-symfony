@@ -5,4 +5,6 @@ RUN apt-get update \
     && docker-php-ext-install pdo pdo_mysql mcrypt curl bcmath pcntl \
     && pecl install mongodb && docker-php-ext-enable mongodb
 
-CMD [ "php", "/ddd/src/Infrastructure/Event/Cli/EventConsumerLauncher.php" ]
+COPY . /var/www/html
+
+CMD [ "php", "/ddd/src/Infrastructure/Message/Amqp/Activity/ActivityConsumerLauncher.php" ]

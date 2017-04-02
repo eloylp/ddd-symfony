@@ -102,8 +102,6 @@ services:
         options:
           syslog-address: "tcp://127.0.0.1:55514"
           tag: "{{.DaemonName}}/eventconsumer"
-      volumes:
-        - .:/ddd
       networks:
         infrastructure_nosql_traffic:
           aliases:
@@ -127,8 +125,6 @@ services:
           options:
             syslog-address: "tcp://127.0.0.1:55514"
             tag: "{{.DaemonName}}/mailerconsumer"
-        volumes:
-          - .:/ddd
         networks:
           infrastructure_nosql_traffic:
             aliases:
