@@ -7,13 +7,14 @@ use DateTime;
 
 class SendEmailCommand implements Command
 {
+    private $id;
     private $type = "ddd.command.send.mail";
+    private $version = 0;
     private $to;
     private $subject;
     private $templateName;
     private $templateData;
     private $time;
-    private $processingTime;
 
     function __construct(string $to, string $subject, string $template_name,
                          array $template_data, DateTime $time = null)
@@ -63,23 +64,6 @@ class SendEmailCommand implements Command
     }
 
     /**
-     * @return mixed
-     */
-    public function getProcessingTime()
-    {
-        return $this->processingTime;
-    }
-
-    /**
-     * @param mixed $processingTime
-     */
-    public function setProcessingTime($processingTime)
-    {
-        $this->processingTime = $processingTime;
-    }
-
-
-    /**
      * Specify data which should be serialized to JSON
      * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
      * @return mixed data which can be serialized by <b>json_encode</b>,
@@ -89,6 +73,7 @@ class SendEmailCommand implements Command
     function jsonSerialize()
     {
         return [
+            "id" => $this->getId(),
             "type" => $this->getType(),
             "time" => $this->getTime(),
             "to" => $this->getTo(),
@@ -113,5 +98,37 @@ class SendEmailCommand implements Command
     public function getTime(): DateTime
     {
         return $this->time;
+    }
+
+    /**
+     * @return int
+     */
+    public function getVersion(): int
+    {
+        return $this->version;
+    }
+
+    /**
+     * @param int $version
+     */
+    public function setVersion(int $version)
+    {
+        $this->version = $version;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 }

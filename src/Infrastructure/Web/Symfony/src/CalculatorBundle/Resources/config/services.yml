@@ -12,6 +12,20 @@ services:
     class: DDD\Calculator\Domain\Model\EventPublisher
     arguments: ["@calculator.persist.event.subscriber", "@calculator.message.event.subscriber"]
 
+
+  calculator.persist.command.subscriber:
+      class: DDD\Calculator\Domain\Model\PersistCommandSubscriber
+      arguments: ["@command.repository"]
+
+  calculator.message.command.mailer.subscriber:
+      class: DDD\Calculator\Domain\Model\MessageCommandSubscriber
+      arguments: ["@rabbitmq.mail.producer"]
+
+  calculator.command.mailer.publisher:
+      class: DDD\Calculator\Domain\Model\CommandPublisher
+      arguments: ["@calculator.persist.command.subscriber", "@calculator.message.command.mailer.subscriber"]
+
+
   calculator_sum.operation:
       class: DDD\Calculator\Domain\Model\CalculatorSumOperation
 

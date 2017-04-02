@@ -21,6 +21,15 @@ services:
   rabbitmq.configurer:
       class: DDD\Infrastructure\Message\Amqp\Configuration\AmqpConnectionFactory
 
+  rabbitmq.mail.producer:
+        class: DDD\Infrastructure\Message\Amqp\Mailer\MailerProducer
+        arguments: ["@rabbitmq.configurer"]
+
+
+  command.repository:
+        class: DDD\Infrastructure\Persistence\Doctrine\Odm\CommandStoreRepository
+        arguments: ["@doctrine.odm.configurer"]
+
 
   rabbitmq.event.producer:
       class: DDD\Infrastructure\Message\Amqp\Activity\ActivityProducer
@@ -30,9 +39,9 @@ services:
       class: DDD\Infrastructure\Persistence\Doctrine\Odm\EventStoreRepository
       arguments: ["@doctrine.odm.configurer"]
 
-  rabbitmq.mail.producer:
-      class: DDD\Infrastructure\Message\Amqp\Mailer\MailerProducer
-      arguments: ["@rabbitmq.configurer"]
+
+
+
 
 
 

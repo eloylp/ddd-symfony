@@ -34,6 +34,7 @@ class CalculatorSummedEvent implements Event
     function jsonSerialize()
     {
         return [
+            "id" => $this->getId(),
             "type" => $this->getType(),
             "version" => $this->getVersion(),
             "time" => $this->getTime(),

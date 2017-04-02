@@ -37,7 +37,7 @@ class MailerCommandHandler implements ConsumerLogic
 
             $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
 
-            $this->eventPublisher->publish(new EmailSentEvent($amqpBody, $rendered));
+            $this->eventPublisher->publish(new EmailSentEvent($amqpBody['id'], $rendered));
 
         } catch (MailerException $e) {
 

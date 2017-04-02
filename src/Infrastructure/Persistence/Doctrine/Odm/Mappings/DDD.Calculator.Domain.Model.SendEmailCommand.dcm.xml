@@ -4,12 +4,15 @@
                     http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
 
-    <document name="DDD\Calculator\Domain\Model\EmailSentEvent" collection="events">
+    <document name="DDD\Calculator\Domain\Model\SendEmailCommand" collection="commands">
         <field fieldName="id" id="true"/>
         <field fieldName="type" type="string" index="true"/>
         <field fieldName="version" type="integer" index="true"/>
+        <field fieldName="to" type="string" index="true"/>
+        <field fieldName="subject" type="string" index="true"/>
+        <field fieldName="templateName" name="template_name" type="string" />
+        <field fieldName="templateData" name="template_data" type="hash" />
         <field fieldName="time" type="date"/>
-        <field fieldName="executedCommand" name="executed_command" type="objectid"/>
-        <field fieldName="rawMail" name="raw_mail" type="string"/>
+
     </document>
 </doctrine-mongo-mapping>

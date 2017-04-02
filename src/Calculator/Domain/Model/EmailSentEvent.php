@@ -11,13 +11,13 @@ class EmailSentEvent implements Event
     private $type = "ddd.event.email.sent";
     private $version = 0;
     private $time;
-    private $executedCommand;
+    private $executedCommandId;
     private $rawMail;
 
-    function __construct(array $mailerCommand, string $rawMail, DateTime $time = null)
+    function __construct(string $mailerCommandId, string $rawMail, DateTime $time = null)
     {
 
-        $this->executedCommand = $mailerCommand;
+        $this->executedCommandId = $mailerCommandId;
         $this->rawMail = $rawMail;
 
         if ($time) {
@@ -42,10 +42,11 @@ class EmailSentEvent implements Event
     function jsonSerialize()
     {
         return [
+            "id" => $this->getId(),
             "type" => $this->getType(),
             "version" => $this->getVersion(),
             "time" => $this->getTime(),
-            "executed_command" => $this->getExecutedCommand(),
+            "executed_command_id" => $this->getExecutedCommandId(),
             "raw_mail" => $this->getRawMail()
         ];
     }
@@ -58,9 +59,9 @@ class EmailSentEvent implements Event
     /**
      * @return array
      */
-    public function getExecutedCommand(): array
+    public function getExecutedCommandId(): string
     {
-        return $this->executedCommand;
+        return $this->executedCommandId;
     }
 
     /**

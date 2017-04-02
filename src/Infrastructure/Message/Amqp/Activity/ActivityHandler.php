@@ -29,18 +29,7 @@ class ActivityHandler implements ConsumerLogic
 
             $event = json_decode($message->getBody(), true);
 
-            if($event['type'] != "ddd.event.email.sent"){
-
-                $this->mailerProducer->publish(new SendEmailCommand(
-                    $this->mailerConfig['sender_address'],
-                    "Someone did something ..",
-                    "event_mail.html.twig",
-                    [
-                        "name" => "DDD",
-                        "event" => json_encode($event)
-                    ]
-                ));
-            }
+            /// Todo something with your activity event.
 
             $message->delivery_info['channel']->basic_ack($message->delivery_info['delivery_tag']);
 
