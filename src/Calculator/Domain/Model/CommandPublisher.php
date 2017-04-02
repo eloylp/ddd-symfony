@@ -8,8 +8,8 @@ class CommandPublisher
 
     private $subscribers;
 
-    public function __construct(PersistEventSubscriber $persistCommandSubscriber,
-                                 MessageEventSubscriber $messageCommandSubscriber)
+    public function __construct(PersistCommandSubscriber $persistCommandSubscriber,
+                                MessageCommandSubscriber $messageCommandSubscriber)
     {
         $this->subscribers = [
             $persistCommandSubscriber,
@@ -17,7 +17,7 @@ class CommandPublisher
         ];
     }
 
-    public function subscribe(Comman $eventSubscriber)
+    public function subscribe(CommandSubscriber $eventSubscriber)
     {
         $this->subscribers[] = $eventSubscriber;
     }

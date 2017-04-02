@@ -8,14 +8,14 @@ class PersistCommandSubscriber implements CommandSubscriber
 {
     private $commandStore;
 
-    function __construct(CommandStore $eventStore)
+    function __construct(CommandRepository $eventStore)
     {
         $this->commandStore = $eventStore;
     }
 
     public function handle(Command $command)
     {
-        $this->commandStore->append($command);
+        $this->commandStore->save($command);
     }
 
     public function isSubscribedTo(Command $command)

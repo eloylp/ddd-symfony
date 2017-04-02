@@ -4,10 +4,10 @@
 namespace DDD\Infrastructure\Persistence\Doctrine\Odm;
 
 use DDD\Calculator\Domain\Model\Command;
-use DDD\Calculator\Domain\Model\CommandStore;
+use DDD\Calculator\Domain\Model\CommandRepository;
 use DDD\Infrastructure\Persistence\Doctrine\Odm\Configuration\DoctrineOdmConfigurerAdapter;
 
-class CommandStoreRepository implements CommandStore
+class CommandRepositoryRepository implements CommandRepository
 {
     private $documentManager;
 
@@ -16,9 +16,9 @@ class CommandStoreRepository implements CommandStore
         $this->documentManager = $doctrineOdmConfigurerAdapter->getDocumentManager();
     }
 
-    public function append(Command $event)
+    public function save(Command $command)
     {
-        $this->documentManager->persist($event);
+        $this->documentManager->persist($command);
         $this->documentManager->flush();
     }
 }
