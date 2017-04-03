@@ -27,7 +27,7 @@ services:
 
 
   command.repository:
-        class: DDD\Infrastructure\Persistence\Doctrine\Odm\CommandStoreRepository
+        class: DDD\Infrastructure\Persistence\Doctrine\Odm\CommandRepositoryRepository
         arguments: ["@doctrine.odm.configurer"]
 
 
